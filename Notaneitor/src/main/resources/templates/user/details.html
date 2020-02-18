@@ -5,17 +5,17 @@
 	<nav th:replace="fragments/nav" />
 	
 	<div class="container">
-		<h2>Detalles del usuario</h2>
+		<h2><span th:text="#{userDetails.message}">Detalles del usuario</span></h2>
 		<div class="panel panel-default">
-  	<div class="panel-heading">DNI</div>
+  	<div class="panel-heading"><span th:text="#{dni.message}">DNI</span></div>
   	<div class="panel-body" th:text="${user.dni}"></div>
   </div>                                                                            
   <div class="panel panel-default">
-	  <div class="panel-heading">Nombre</div>
+	  <div class="panel-heading"><span th:text="#{name.message}">Nombre</span></div>
 	  <div class="panel-body" th:text="${user.name}"></div>
   </div>
   <div class="panel panel-default">
-	  <div class="panel-heading">Apellidos</div>
+	  <div class="panel-heading"><span th:text="#{lastName.message}">Apellidos</span></div>
 	  <div class="panel-body" th:text="${user.lastName}"></div>
   </div>
 	</div>

@@ -5,18 +5,18 @@
 	<nav th:replace="fragments/nav" />
 
 	<div class="container">
-		<h2>Editar usuario</h2>
+		<h2><span th:text="#{editUser.message}">Editar usuario</span></h2>
 		<form class="form-horizontal" method="post"
 			th:action="${'/user/edit/' + user.id}">
 			<div class="form-group">
-				<label class="control-label col-sm-2" for="dni">Dni:</label>
+				<label class="control-label col-sm-2" for="dni"><span th:text="#{dniLabel.message}">DNI:</span></label>
 				<div class="col-sm-10">
 					<input th:value="${user.dni}" type="text" class="form-control"
 						name="dni" placeholder="Dni" required="true" />
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2" for="name">Nombre:</label>
+				<label class="control-label col-sm-2" for="name"><span th:text="#{nameLabel.message}">Nombre:</span></label>
 				<div class="col-sm-10">
 					<input th:value="${user.name}" type="text"
 						class="form-control" name="name"
@@ -24,7 +24,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-2" for="pwd">Apellidos:</label>
+				<label class="control-label col-sm-2" for="pwd"><span th:text="#{lastNameLabel.message}">Apellidos:</span></label>
 				<div class="col-sm-10">
 					<input th:value="${user.lastName}" type="text" class="form-control"
 						name="lastName" placeholder="Apellidos" required="true" />
@@ -33,7 +33,7 @@
 			
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
-					<button type="submit" class="btn btn-primary">Modificar</button>
+					<button type="submit" class="btn btn-primary"><span th:text="#{edit.message}">Modificar</span></button>
 				</div>
 			</div>
 		</form>
