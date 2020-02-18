@@ -61,19 +61,19 @@ public class UsersController {
 		return "user/home";
 	}
 
-	@RequestMapping("/list")
+	@RequestMapping("user/list")
 	public String getListado(Model model) {
 		model.addAttribute("usersList", usersService.getUsers());
-		return "user/list";
+		return "/user/list";
 	}
 
-	@RequestMapping(value = "/add")
+	@RequestMapping(value = "user/add")
 	public String getUser(Model model) {
 		model.addAttribute("usersList", usersService.getUsers());
-		return "user/add";
+		return "/user/add";
 	}
 
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	@RequestMapping(value = "user/add", method = RequestMethod.POST)
 	public String setUser(@ModelAttribute User user) {
 		usersService.addUser(user);
 		return "redirect:/user/list";

@@ -3,7 +3,6 @@ package com.uniovi.services;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -36,12 +35,15 @@ public class UsersService {
 	}
 	
 	public void addUser(User user) {
-		if(user != null) {
+		if(user.getPassword() == null) {
+			User old = getUser(user.getId());
+			String password = old.getPassword();
+			user.setPassword(password);
+			user.setPasswordConfirm(password);
+		}
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		usersRepository.save(user);
-		}else {
-			System.out.print("user null");
-		}
+		
 	}
 
 	public void deleteUser(Long id) {
