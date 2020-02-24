@@ -31,13 +31,13 @@ public class MarksService {
 		;
 		return marks;
 	}
-	
-	public List<Mark> getMarksForUser(User user){
+
+	public List<Mark> getMarksForUser(User user) {
 		List<Mark> marks = new ArrayList<Mark>();
-		if(user.getRole().equals("ROLE_STUDENT")) {
+		if (user.getRole().equals("ROLE_STUDENT")) {
 			marks = marksRepository.findAllByUser(user);
 		}
-		if(user.getRole().equals("ROLE_PROFESSOR")) {
+		if (user.getRole().equals("ROLE_PROFESSOR")) {
 			marks = getMarks();
 		}
 		return marks;
@@ -66,10 +66,22 @@ public class MarksService {
 	public void setMarkResend(boolean revised, Long id) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String dni = auth.getName();
-		
+
 		Mark mark = marksRepository.findById(id).get();
-		if(mark.getUser().getDni().equals(dni)) {
+		if (mark.getUser().getDni().equals(dni)) {
 			marksRepository.updateResend(revised, id);
 		}
+	}
+
+	public List<Mark> searchMarksByDescriptionAndNameForUser(String searchText, User user) {
+		List<Mark> marks = new ArrayList<Mark>();
+		searchText = "%"+searchText+"%";
+		if (user.getRole().equals("ROLE_STUDENT")) {
+			marks = marksRepository.searchByDescriptionNameAndUser(searchText, user);
+		}
+		if (user.getRole().equals("ROLE_PROFESSOR")) {
+			marks = marksRepository.searchByDescriptionAndName(searchText);
+		}
+		return marks;
 	}
 }

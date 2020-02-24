@@ -7,7 +7,13 @@
 		<h2>
 			<span th:text="#{marks.message}">Notas</span>
 		</h2>
-
+		<form class="navbar-form" action="/mark/list">
+			<div class="form-group">
+				 <input name="searchText" type="text"
+					class="form-control" size="50" placeholder="Buscar por descripción o nombre del alumno"> 
+			</div>
+			<button type="submit" class="btn btn-default">Buscar</button>
+		</form>
 		<p>
 			<span th:text="#{marksText.message}">Las notas que actualmente
 				figuran en el sistema son las siguientes:</span>
