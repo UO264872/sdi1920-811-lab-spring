@@ -24,4 +24,14 @@ public class PO_PrivateView extends PO_NavView {
 		By boton = By.className("btn");
 		driver.findElement(boton).click();
 	}
+	
+	static public void login(WebDriver driver,String user,String passwd,String pageText) {
+		clickOption(driver, "login", "class", "btn btn-primary");
+		PO_LoginView.fillForm(driver, user, passwd);
+		checkElement(driver, "text", pageText);
+	}
+	
+	static public void logout(WebDriver driver) {
+		clickOption(driver, "logout", "text", "Identifícate");
+	}
 }
