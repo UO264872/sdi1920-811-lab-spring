@@ -161,9 +161,6 @@ public class NotaneitorTests {
 	// PR12. Loguearse, comprobar que se visualizan 4 filas de notas y desconectarse
 	// usando el rol de estudiante.
 
-	// PR12. Loguearse, comprobar que se visualizan 4 filas de notas y desconectarse
-	// usando el rol de estudiante.
-
 	public void PR12() {
 		// Vamos al formulario de logueo.
 		// Rellenamos el formulario
@@ -202,9 +199,9 @@ public class NotaneitorTests {
 	// encapsularse mejor ... @Test
 	public void PR14() {
 		// Vamos al formulario de logueo.
-		// COmprobamos que entramos en la pagina privada del Profesor		
+		// COmprobamos que entramos en la pagina privada del Profesor
 		PO_PrivateView.login(driver, "99999993D", "123456", "99999993D");
-		
+
 		// Pinchamos en la opción de menu de Notas: //li[contains(@id, 'marks-menu')]/a
 		List<WebElement> elementos = PO_View.checkElement(driver, "free", "//li[contains(@id,'marks-menu')]/a");
 		elementos.get(0).click();
@@ -261,6 +258,45 @@ public class NotaneitorTests {
 		SeleniumUtils.EsperaCargaPaginaNoTexto(driver, "Nota Nueva 1", PO_View.getTimeout());
 		// Ahora nos desconectamos
 		PO_PrivateView.logout(driver);
+	}
+
+	// Registro de profesores con datos validos
+	@Test
+	public void PR16() {
+		// logearse como administrador
+		PO_PrivateView.login(driver, "99999988F", "123456", "99999993D");
+		driver.get("/teacher/add");
+		// Ahora rellenamos los campos del profesor
+		PO_PrivateView.fillFormAddTeacher(driver, "99999988F", "Juan", "Garcia", "Matematicas");
+		PO_View.checkElement(driver, "text",
+				"Los profesores que actualmente figuran en el sistema son los siguientes:");
+	}
+
+	// registro de profesores con nombre y categoria invalidos
+	@Test
+	public void PR17() {
+		// logearse como administrador
+		PO_PrivateView.login(driver, "99999988F", "123456", "99999993D");
+		//vamos a la pagina de añadir profesor
+		driver.get("/teacher/add");
+		//introducimos nombre y categoria muy cortos
+		PO_PrivateView.fillFormAddTeacher(driver, "99999988F", "A", "Garcia", "");
+		PO_View.getP();
+		//error de nombre muy corto
+		PO_RegisterView.checkKey(driver, "Error.signup.name.length", PO_Properties.getSPANISH());
+		//error de categoria vacia
+		PO_RegisterView.checkKey(driver, "Error.empty", PO_Properties.getSPANISH());
+	}
+
+	// usuario no autorizado intenta añadir profesor
+	@Test
+	public void PR18() {
+		//logearse como alumno
+		PO_PrivateView.login(driver, "99999990A", "123456", "Notas del usuario");
+		//intentamos ir a la pagina de añadir usuario
+		driver.get("/teacher/add");
+		//nos debe redirigir a la pagina de login para entrar
+		PO_PrivateView.checkElement(driver, "text", "Identifícate");
 	}
 
 	@Before
